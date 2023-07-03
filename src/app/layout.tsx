@@ -1,5 +1,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,6 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossOrigin="anonymous"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossOrigin="anonymous"/>
+      </Head>
       <body className={inter.className}>{children}</body>
     </html>
   )

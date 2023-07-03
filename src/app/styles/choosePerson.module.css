@@ -1,0 +1,9 @@
+.body {
+    background-image: url('/human-tracker-backend/public/purple-background.png');
+    margin-top: 200px;
+    text-align: center;
+}
+
+.h2 {
+  color: white;
+}
