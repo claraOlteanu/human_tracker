@@ -1,16 +1,20 @@
-import styles from '../app/styles/login.module.css';
-
 import '../app/globals.css'
 import { MySqlConnector } from '../../lib/mySQL';
 import { useState } from 'react';
+import styles from './login.module.css';
+import axios from 'axios';
 
 export default function Login() {
     const [emailValue, setEmailInputText] = useState("");
     const [passValue, setPassInputText] = useState("");
 
 
-  async function login(email: string, pass: string) {
-    const result = await MySqlConnector.getInstance().getUserByEmail(email);
+  async function login(e: any) {
+    console.log(e);
+    e.preventDefault();
+    const user = e.target[0].value;
+    const pass = e.target[1].value; 
+    const result = await axios.post('/api/login', {email: pass});
     if(result) {
         console.log(result);
     }
@@ -30,26 +34,39 @@ export default function Login() {
                         </div>
                     </div>
                     <div className="card-body">
-                        <form>
+                        <form onSubmit={login}>
                             <div className="input-group form-group">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text"><i className="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" className="form-control" placeholder="username" required value={emailValue} />
-                                
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="username" 
+                                    required 
+                                    value={emailValue} 
+                                    onChange={e => setEmailInputText(e.target.value)}
+                                />
                             </div>
                             <div className="input-group form-group">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text"><i className="fas fa-key"></i></span>
                                 </div>
-                                <input type="password" className="form-control" placeholder="password" required value={passValue}/>
+                                <input 
+                                    type="password" 
+                                    className="form-control" 
+                                    placeholder="password" 
+                                    required 
+                                    value={passValue}
+                                    onChange={e => setPassInputText(e.target.value)}
+                                />
                             </div>
                             <div className="row align-items-center remember">
                                 <input type="checkbox" id="rememberMe" name="rememberMe"/>
                                 <label htmlFor="rememberMe">Remember me</label>
                             </div>
                             <div className="form-group links">
-                                <input type="submit" onClick={() => login(emailValue, passValue)} value="Login" className="btn float-right login_btn"/>
+                                <button type='submit' className={styles.loginButton}>Login</button>
                             </div>
                         </form>
                     </div>

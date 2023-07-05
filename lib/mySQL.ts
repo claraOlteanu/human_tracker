@@ -1,7 +1,7 @@
 import mysql, { ServerlessMysql } from 'serverless-mysql';
 import { config } from './config';
 
-export class MySqlConnector {
+export class  MySqlConnector {
     private static instance: MySqlConnector | null = null;
     private con: ServerlessMysql;
 
@@ -26,9 +26,9 @@ export class MySqlConnector {
     }
 
     public async getUserByEmail(email: string) {
-        let res: unknown[] | undefined = undefined;
+        let res: unknown[];
 
-        res = await this.con.query(`SELECT * FROM user WHERE email=` + this.con.escape(email)) as unknown[];
+        res = await this.con.query(`SELECT * FROM user WHERE user=` + this.con.escape(email)) as unknown[];
 
         return res[0];
     }
